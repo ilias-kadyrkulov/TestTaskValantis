@@ -1,0 +1,32 @@
+.itemDescBox {
+    display: grid;
+    grid-template-areas:
+        'brand'
+        'price'
+        'id';
+    gap: 1rem;
+    place-items: center;
+}
+
+.itemDescBox p:nth-child(1) {
+    grid-area: brand;
+    text-align: center;
+}
+
+.itemDescBox p:nth-child(2) {
+    grid-area: price;
+    text-align: center;
+}
+
+.itemDescBox p:nth-child(3) {
+    grid-area: id;
+    text-align: center;
+}
+
+@media (min-width: 325px) {
+    .itemDescBox {
+        grid-template-areas:
+            'brand brand'
+            'price id';
+    }
+}
