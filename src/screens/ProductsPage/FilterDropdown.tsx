@@ -104,7 +104,7 @@ export const FilterDropdown: FC<TProps> = ({
                     {
                         '-z-10 -translate-y-5 opacity-0 transition-all duration-500':
                             !isDropdownActive,
-                        'z-10 bg-[#ae3e4c] translate-y-0 opacity-100 transition-all duration-300':
+                        'z-10 bg-[#ae3e4c] translate-y-0 -translate-x-16 opacity-100 transition-all duration-300':
                             isDropdownActive
                     }
                 )}
