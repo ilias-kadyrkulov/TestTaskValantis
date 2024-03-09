@@ -93,7 +93,7 @@ export const FilterDropdown: FC<TProps> = ({
             ref={dropdownRef}
         >
             <button
-                className='border border-slate-400 p-1 rounded-lg bg-[#ae3e4c] text-slate-200'
+                className='border border-slate-400 p-1 mr-5 rounded-lg bg-[#ae3e4c] text-slate-200'
                 onClick={onDropdownClicked}
             >
                 Фильтровать по: <strong>{filters}</strong>
