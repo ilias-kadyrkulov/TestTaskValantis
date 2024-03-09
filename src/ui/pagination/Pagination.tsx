@@ -45,7 +45,7 @@ export const Pagination: FC<TProps> = ({
 
     return (
         <>
-            <div className='flex items-center gap-1 px-5 py-2'>
+            <div className='flex items-center justify-center  gap-1 px-5 py-2'>
                 {currentPageNumber > 1 && ( //NOTE - Предыдущая страница
                     <button
                         className='h-full'

@@ -45,7 +45,7 @@ export const ProductsPage: FC = () => {
     const {
         mutate: itemsMutate,
         data: itemsData,
-        isPending,
+        isPending
     } = useCustomMutation([ITEMS_KEY], ({ ids }: TGetItemsParams) =>
         valantisApi.getItems({ ids: ids })
     )
@@ -89,6 +89,7 @@ export const ProductsPage: FC = () => {
 
     return (
         <>
+            <h1 className='text-center text-4xl font-bold mb-2'>Список товаров:</h1>
             <Pagination
                 currentPageNumber={currentPage}
                 totalItemsCount={totalPages}
@@ -105,7 +106,10 @@ export const ProductsPage: FC = () => {
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 w-full min-h-[600px] p-2 rounded'>
                     {isPending && <ItemSkeleton items={12} />}
                     {itemsData?.map(item => (
-                        <Product key={item.id} item={item} />
+                        <Product
+                            key={item.id}
+                            item={item}
+                        />
                     ))}
                 </div>
             </div>

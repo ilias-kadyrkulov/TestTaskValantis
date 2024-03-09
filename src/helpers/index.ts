@@ -22,7 +22,7 @@ export function generatePagination(
     let siblingCount = 1
     let boundaryCount = 1
 
-    if (windowWidth > 1024) {
+    if (windowWidth > 1220) {
         siblingCount = 6
         boundaryCount = 6
     } else if (windowWidth > 925) {
