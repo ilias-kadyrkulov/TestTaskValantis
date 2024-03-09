@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { generatePagination } from '@/helpers'
 import clsx from 'clsx'
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'

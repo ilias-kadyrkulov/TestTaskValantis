@@ -23,6 +23,7 @@ import { useCustomMutation } from '@/hooks/useCustomMutation'
 export const ProductsPage: FC = () => {
     const [totalItemsCount, setTotalItemsCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
+    //@ts-ignore
     const [limit, setLimit] = useState(50) //TODO - Можно менять порцию
 
     const [params, setParams] = useState<TFieldsProps>({})
