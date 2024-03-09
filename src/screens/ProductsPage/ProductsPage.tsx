@@ -1,82 +1,113 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { valantisApi } from '@/services/api'
 import { useMutation } from '@tanstack/react-query'
+import { FilterDropdown } from './FilterDropdown'
 import { Pagination } from '@/ui/pagination/Pagination'
+import { Product } from './Product/Product'
 import { ItemSkeleton } from '@/common/ItemSkeleton/ItemSkeleton'
+import {
+    Fields,
+    TFieldsProps,
+    TGetIdsParams,
+    TGetItemsParams
+} from '@/types/services.types'
 import 'react-loading-skeleton/dist/skeleton.css'
-import s from './ProductsPage.module.css'
+import {
+    FIELDS_KEY,
+    FILTER_KEY,
+    IDS_KEY,
+    ITEMS_KEY
+} from '@/constants/constants'
+import { useCustomMutation } from '@/hooks/useCustomMutation'
 
 export const ProductsPage: FC = () => {
-    const { mutate: idsMutate, data: idsData } = useMutation({
-        mutationKey: ['ids'],
-        mutationFn: () => valantisApi.getIds({ limit: 50 })
-    })
+    const [totalItemsCount, setTotalItemsCount] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [limit, setLimit] = useState(50) //TODO - Можно менять порцию
+
+    const [params, setParams] = useState<TFieldsProps>({})
+
+    const totalPages = Math.ceil(totalItemsCount / limit)
+
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber)
+        const newOffset = (pageNumber - 1) * limit
+        idsMutate({ offset: newOffset, limit: limit })
+    }
+
+    const { mutate: idsMutate, data: idsData } = useCustomMutation(
+        [IDS_KEY],
+        ({ offset, limit }: TGetIdsParams) =>
+            valantisApi.getIds({ offset: offset, limit: limit })
+    )
 
     const {
         mutate: itemsMutate,
         data: itemsData,
-        isPending
-    } = useMutation({
-        mutationKey: ['items'],
-        mutationFn: () => valantisApi.getItems({ ids: idsData })
-    })
+        isPending,
+    } = useCustomMutation([ITEMS_KEY], ({ ids }: TGetItemsParams) =>
+        valantisApi.getItems({ ids: ids })
+    )
 
-    const {
-        mutate: fieldsMutate,
-        data: fieldsData
-        // isError
-    } = useMutation({
-        mutationKey: ['fields'],
-        mutationFn: () => valantisApi.getFields()
+    const { mutate: fieldsMutate } = useCustomMutation(
+        [FIELDS_KEY],
+        (field: Fields) => valantisApi.getFields({ field: field }),
+        {
+            async onSuccess({ result }) {
+                setTotalItemsCount(result.length)
+            }
+        }
+    )
+
+    const { mutate: filterMutate, data: filterData } = useMutation({
+        mutationKey: [FILTER_KEY],
+        mutationFn: ({ brand, price, product }: TFieldsProps) =>
+            valantisApi.filter({
+                brand: brand,
+                price: price,
+                product: product
+            }),
+        async onSuccess({ result }) {
+            setTotalItemsCount(result.length)
+        }
     })
 
     useEffect(() => {
-        idsMutate()
+        fieldsMutate(Fields.product)
 
-        fieldsMutate()
+        idsMutate({ limit: limit })
     }, [])
 
     useEffect(() => {
-        idsData && itemsMutate()
+        idsData && itemsMutate({ ids: idsData })
     }, [idsData])
 
-    console.log(idsData, 'ids')
-    console.log(itemsData, 'items')
-    console.log(fieldsData, 'fields')
+    useEffect(() => {
+        filterData && itemsMutate({ ids: filterData.result })
+    }, [filterData])
 
     return (
-        <div className='container mx-auto mt-10'>
-            <div className='flex flex-col items-center mx-4 sm:mx-0 lg:mx-4'>
-                <div className='flex w-full justify-end pr-4 mb-5'>
-                    <h2>Filter</h2>
-                </div>
+        <>
+            <Pagination
+                currentPageNumber={currentPage}
+                totalItemsCount={totalPages}
+                pageSize={limit}
+                paginate={handlePageChange}
+            />
+            <div className='container px-3 xs:px-2 mx-auto my-3'>
+                <FilterDropdown
+                    params={params}
+                    setParams={setParams}
+                    filterMutation={filterMutate}
+                />
+
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 w-full min-h-[600px] p-2 rounded'>
                     {isPending && <ItemSkeleton items={12} />}
                     {itemsData?.map(item => (
-                        <div
-                            className='grid content-between gap-4 rounded p-4 shadow-inner transition-all duration-500 hover:scale-[1.1] hover:shadow-lg hover:shadow-inner'
-                            key={item.id}
-                        >
-                            <h2 className='text-indigo-950 text-center font-medium'>
-                                {item.product}
-                            </h2>
-                            <div className={s.itemDescBox}>
-                                <p className='text-indigo-950'>
-                                    {item.brand ? item.brand : 'none'}
-                                </p>
-                                <p className='text-[#ae3e4c] font-normal'>
-                                    {item.price} ₽
-                                </p>
-                                <p className='text-indigo-950 text-sm italic'>
-                                    {item.id}
-                                </p>
-                            </div>
-                        </div>
+                        <Product key={item.id} item={item} />
                     ))}
                 </div>
-
-                <Pagination totalItems={fieldsData?.length} />
             </div>
-        </div>
+        </>
     )
 }

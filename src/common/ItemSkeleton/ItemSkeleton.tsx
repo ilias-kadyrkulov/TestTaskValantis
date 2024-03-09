@@ -11,7 +11,7 @@ export const ItemSkeleton: FC<TProps> = ({ items }) => {
         .map((_, idx) => (
             <div
                 key={idx}
-                className='flex flex-col gap-1 shadow-2xl rounded bg-slate-50'
+                className='grid content-center gap-4 shadow-2xl rounded bg-[#ae3e4c]'
             >
                 <Skeleton count={5} height={20} />
             </div>

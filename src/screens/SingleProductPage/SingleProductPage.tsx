@@ -1,7 +1,14 @@
-import { FC } from "react"
+import { FC } from 'react'
+import { TItem } from '@/types/services.types'
+import { useParams } from 'react-router-dom'
 
-export const SingleProductPage: FC = ({}) => {
-  return (
-    <div>SingleProductPage</div>
-  )
+type TProps = {
+    item?: TItem
+}
+
+export const SingleProductPage: FC<TProps> = () => {
+    const { productId } = useParams()
+    console.log(productId)
+
+    return <div>SingleProduct</div>
 }

@@ -17,7 +17,7 @@ import axios, { AxiosResponse } from 'axios'
 
 const API_URL = 'https://api.valantis.store:41000'
 
-const instance = axios.create({
+export const instance = axios.create({
     baseURL: API_URL,
     headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export const valantisApi = {
                 action: 'get_fields',
                 params: fieldsParams
             })
-            .then(res => res.data.result)
+            .then(res => res.data)
     },
     async filter(filterParams: TFieldsProps) {
         return instance

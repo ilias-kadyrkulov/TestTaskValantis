@@ -14,28 +14,65 @@ export function generateXAuthValue() {
     return md5(`${process.env.API_PSWD}_${timestamp}`).toString() //NOTE - Значение к заголовку X-Auth
 }
 
-export const generatePagination = (currentPage: number, totalPages: number) => {
-    if (totalPages <= 10) {
-        return Array.from({ length: totalPages }, (_, i) => i + 1)
+export function generatePagination(
+    currentPage: number,
+    totalPages: number,
+    windowWidth: number
+) {
+    let siblingCount = 1
+    let boundaryCount = 1
+
+    if (windowWidth > 1024) {
+        siblingCount = 6
+        boundaryCount = 6
+    } else if (windowWidth > 925) {
+        siblingCount = 4
+        boundaryCount = 4
+    } else if (windowWidth > 657) {
+        siblingCount = 3
+        boundaryCount = 3
+    } else if (windowWidth > 550) {
+        siblingCount = 2
+        boundaryCount = 2
+    } else if (windowWidth >= 325) {
+        siblingCount = 1
+        boundaryCount = 1
     }
 
-    if (currentPage <= 3) {
-        return [1, 2, 3, '...', totalPages - 1, totalPages]
+    const totalPageNumbers = siblingCount * 2 + 5
+
+    if (totalPages <= totalPageNumbers) {
+        return range(1, totalPages)
     }
 
-    if (currentPage >= totalPages - 2) {
-        return [1, 2, '...', totalPages - 2, totalPages - 1, totalPages]
+    const showLeftDots = currentPage > boundaryCount + siblingCount + 2
+    const showRightDots =
+        currentPage < totalPages - boundaryCount - siblingCount - 1
+
+    const paginationRange: Array<number | string> = []
+
+    paginationRange.push(1)
+    if (showLeftDots) {
+        paginationRange.push('...')
     }
 
-    return [
-        1,
-        2,
-        '...',
-        currentPage - 1,
-        currentPage,
-        currentPage + 1,
-        '...',
-        totalPages - 1,
-        totalPages
-    ]
+    let startPage = showLeftDots ? currentPage - siblingCount : 2
+    let endPage = showRightDots ? currentPage + siblingCount : totalPages - 1
+    for (let i = startPage; i <= endPage; i++) {
+        paginationRange.push(i)
+    }
+
+    if (showRightDots && currentPage + siblingCount + 1 < totalPages) {
+        paginationRange.push('...')
+    }
+    if (currentPage + siblingCount + 1 !== totalPages || !showRightDots) {
+        paginationRange.push(totalPages)
+    }
+
+    return paginationRange
+}
+
+function range(start: number, end: number) {
+    let length = end - start + 1
+    return Array.from({ length }, (_, idx) => idx + start)
 }

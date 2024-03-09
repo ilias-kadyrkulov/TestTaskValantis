@@ -8,7 +8,7 @@ const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
-        <SkeletonTheme baseColor='#a62639' highlightColor='#b9b9b937'>
+        <SkeletonTheme baseColor='#f0f0f037' highlightColor='#b9b9b937'>
             <App />
         </SkeletonTheme>
     </QueryClientProvider>

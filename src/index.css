@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background-color: #f0f0f037;
+    background-color: #f0f0f037;
+}
+
+:root {
+    --color-bg: #1f1f1f;
 }

@@ -1,11 +1,11 @@
-enum Fields {
+export enum Fields {
     brand = 'brand',
     product = 'product',
     price = 'price'
 }
-export type TFieldsProps = {
-    [key in keyof typeof Fields]: key extends 'price' ? number : string
-}
+export type TFieldsProps = Partial<{
+    [key in keyof typeof Fields]: key extends 'price' ? number | string : string
+}>
 
 export type TGetIdsRequest = {
     action: 'get_ids'
@@ -29,7 +29,7 @@ export type TGetItemsParams = {
 export type TGetItemsResponse = {
     result: TItem[] | null
 }
-type TItem = {
+export type TItem = {
     brand: string | null
     id: string
     price: number
