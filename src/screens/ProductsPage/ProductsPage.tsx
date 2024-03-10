@@ -56,7 +56,11 @@ export const ProductsPage: FC = () => {
         }
     )
 
-    const { mutate: itemsMutate, isPending } = useCustomMutation(
+    const {
+        mutate: itemsMutate,
+        isPending,
+        isSuccess
+    } = useCustomMutation(
         [ITEMS_KEY],
         ({ ids }: TGetItemsParams) => valantisApi.getItems({ ids: ids }),
         {
@@ -147,11 +151,13 @@ export const ProductsPage: FC = () => {
                 paginate={handlePageChange}
             />
             <div className='container px-10 mx-auto my-3'>
-                <FilterDropdown
-                    params={params}
-                    setParams={setParams}
-                    filterMutation={filterMutate}
-                />
+                {isSuccess && (
+                    <FilterDropdown
+                        params={params}
+                        setParams={setParams}
+                        filterMutation={filterMutate}
+                    />
+                )}
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full min-h-[600px] py-2 rounded'>
                     {isPending ? (
