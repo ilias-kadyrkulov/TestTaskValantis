@@ -89,27 +89,32 @@ export const FilterDropdown: FC<TProps> = ({
 
     return (
         <div
-            className='float-right mb-10'
+            className='mb-10 ml-3 float-left'
             ref={dropdownRef}
         >
             <button
-                className='border border-slate-400 p-1 mr-5 rounded-lg bg-[#ae3e4c] text-slate-200'
+                className={clsx(
+                    'border border-slate-400 p-1 md:p-3 md:text-lg rounded-lg bg-[#ae3e4c] text-slate-200 transition-[border-radius] duration-300',
+                    {
+                        'rounded-b-none': isDropdownActive
+                    }
+                )}
                 onClick={onDropdownClicked}
             >
                 Фильтровать по: <strong>{filters}</strong>
             </button>
             <div
                 className={clsx(
-                    'absolute flex gap-1 rounded-lg divide-x max-w-[300px]',
+                    'absolute flex gap-1 rounded-lg divide-x max-w-[300px] w-full transition-all',
                     {
-                        '-z-10 -translate-y-5 opacity-0 transition-all duration-500':
+                        '-z-10 -translate-y-2 opacity-0  duration-500':
                             !isDropdownActive,
-                        'z-10 bg-[#ae3e4c] translate-y-0 -translate-x-16 opacity-100 transition-all duration-300':
+                        'z-10 bg-[#ae3e4c] translate-y-0 opacity-100 duration-300 rounded-l-none':
                             isDropdownActive
                     }
                 )}
             >
-                <div className='flex flex-col gap-2 p-2'>
+                <div className='flex flex-col w-full gap-2 p-2'>
                     <input
                         className='bg-transparent placeholder:italic text-slate-100'
                         type='text'

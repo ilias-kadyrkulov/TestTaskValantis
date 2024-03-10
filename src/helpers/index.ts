@@ -22,21 +22,21 @@ export function generatePagination(
     let siblingCount = 1
     let boundaryCount = 1
 
-    if (windowWidth > 1220) {
+    if (windowWidth > 1440) {
         siblingCount = 6
         boundaryCount = 6
     } else if (windowWidth > 925) {
         siblingCount = 4
         boundaryCount = 4
-    } else if (windowWidth > 657) {
+    } else if (windowWidth > 780) {
         siblingCount = 3
         boundaryCount = 3
     } else if (windowWidth > 550) {
         siblingCount = 2
         boundaryCount = 2
-    } else if (windowWidth >= 325) {
-        siblingCount = 1
-        boundaryCount = 1
+    } else if (windowWidth > 0) {
+        siblingCount = 0
+        boundaryCount =0
     }
 
     const totalPageNumbers = siblingCount * 2 + 5

@@ -42,7 +42,7 @@ export const Header: FC = () => {
                         className={clsx(
                             'translate-y-0 transition-all duration-500 rounded w-24',
                             {
-                                'translate-y-2 transition-all duration-500 w-20':
+                                'translate-y-2 duration-500 w-20':
                                     isScrolled
                             }
                         )}

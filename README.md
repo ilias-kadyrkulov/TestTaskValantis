@@ -1,30 +1,36 @@
-# React + TypeScript + Vite
+# Тестовое задание от Valantis
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Страница, которая отображает список товаров.
 
-Currently, two official plugins are available:
+## Выполнены требования:
+* для каждого товара `отображается` его `id`, `название`, `цена` и `бренд`.
+* выводить по `50 товаров` на страницу с возможностью `постраничного перехода` в обе стороны.
+* возможность `фильтровать` выдачу используя API по `названию`, `цене` и `бренду`.
+* `дубли` по `id` сортированы `Map` коллекцией; `при ошибке` от API выводится `идентификатор ошибки` в консоль и отправляется повторно запрос с последующим успешным логированием.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Выполнено на стэке:
+* React/TS
+* Tanstack (React) Query/axios
+* Tailwind CSS
 
-## Expanding the ESLint configuration
+## Деплой
+* [Vercel](https://test-task-valantis-kappa.vercel.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
+## Инициализация веб-приложения
+**1**. 
 ```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+npm i
+```
+или
+```js
+yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**2**.
+```js
+npm run dev
+```
+или
+```js
+yarn dev
+```

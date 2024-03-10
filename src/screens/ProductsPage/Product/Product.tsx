@@ -9,19 +9,22 @@ type TProps = {
 export const Product: FC<TProps> = ({ item }) => {
     return (
         <button
-            className='grid content-between gap-4 rounded p-4 shadow-inner transition-all duration-500 hover:scale-[1.1] hover:shadow-lg hover:shadow-inner'
+            className={s.itemBox}
             key={item.id}
             aria-label={item.product}
         >
-            <span className='text-indigo-950 text-center font-medium'>
+            <span className='text-indigo-950 text-center font-medium text-2xl '>
                 {item.product}
             </span>
             <div className={s.itemDescBox}>
-                <p className='text-indigo-950 font-light'>
-                    Brand: {item.brand ? item.brand : 'none'}
+                <p className='text-indigo-950 font-light text-xl'>
+                    Бренд: {item.brand ? item.brand : '-'}
                 </p>
-                <p className='text-[#ae3e4c] font-normal'>{item.price} ₽</p>
-                <p className='text-indigo-950 text-sm italic max-w-[150px]'>{item.id}</p>
+                <p className='text-[#ae3e4c] font-normal text-2xl'>{item.price} ₽</p>
+                <h4 className='text-indigo-950 italic max-w-[200px] text-lg'>
+                    <p className='not-italic font-bold'>Артикул: </p>
+                    {item.id}
+                </h4>
             </div>
         </button>
     )

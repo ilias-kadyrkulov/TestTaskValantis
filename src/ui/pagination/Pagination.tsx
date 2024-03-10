@@ -45,13 +45,13 @@ export const Pagination: FC<TProps> = ({
 
     return (
         <>
-            <div className='flex items-center justify-center  gap-1 px-5 py-2'>
+            <div className='flex items-center justify-center xs:gap-0  sm:gap-1 xs:px-3 sm:px-5 py-10'>
                 {currentPageNumber > 1 && ( //NOTE - Предыдущая страница
                     <button
-                        className='h-full'
+                        className='mr-1 w-10 xs:w-10 md:w-14'
                         onClick={() => paginate(currentPageNumber - 1)}
                     >
-                        <FaArrowCircleLeft height={40} />
+                        <FaArrowCircleLeft size={'100%'} />
                     </button>
                 )}
 
@@ -60,7 +60,7 @@ export const Pagination: FC<TProps> = ({
                     if (pageNumber === '...') {
                         return (
                             <span
-                                className='text-center border border-slate-400 p-1 rounded text-sm 450:min-w-[50px] min-w-[30px] transition-colors duration-500'
+                                className='text-center border border-slate-400 md:p-4 p-3 rounded text-sm xs:min-w-[50px] transition-colors duration-500'
                                 key={index}
                             >
                                 ...
@@ -70,7 +70,7 @@ export const Pagination: FC<TProps> = ({
                         return (
                             <button
                                 className={clsx(
-                                    `overflow-clip border border-slate-400 p-1 rounded text-sm 450:min-w-[50px] min-w-[30px] transition-colors duration-500`,
+                                    `border border-slate-400 md:p-4 p-3 rounded text-sm xs:min-w-[50px] transition-colors duration-500`,
                                     {
                                         'bg-[#ae3e4c] text-slate-100':
                                             currentPageNumber === pageNumber,
@@ -90,8 +90,11 @@ export const Pagination: FC<TProps> = ({
                 })}
 
                 {currentPageNumber < totalItemsCount && ( //NOTE - Следующая страница
-                    <button onClick={() => paginate(currentPageNumber + 1)}>
-                        <FaArrowCircleRight />
+                    <button
+                        className='ml-1 w-10 xs:w-10 md:w-14'
+                        onClick={() => paginate(currentPageNumber + 1)}
+                    >
+                        <FaArrowCircleRight size={'100%'} />
                     </button>
                 )}
             </div>

@@ -23,10 +23,21 @@
     text-align: center;
 }
 
+.itemBox {
+    @apply grid content-between gap-10 rounded p-4 shadow-inner duration-500 hover:shadow-lg hover:shadow-inner;
+}
+
 @media (min-width: 325px) {
     .itemDescBox {
         grid-template-areas:
             'brand brand'
             'price id';
+    }
+}
+
+@media (hover: hover) {
+    .itemBox:hover {
+        transform: scale(1.1) !important;
+        transition: transform 0.5s ease-in-out;
     }
 }

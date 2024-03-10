@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from 'axios'
 import { generateXAuthValue } from '@/helpers'
 import {
     TFilterRequest,
@@ -13,7 +14,6 @@ import {
     TGetItemsParams,
     TFieldsProps
 } from '@/types/services.types'
-import axios, { AxiosResponse } from 'axios'
 
 const API_URL = 'https://api.valantis.store:41000'
 
