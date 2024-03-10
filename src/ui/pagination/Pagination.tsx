@@ -48,7 +48,7 @@ export const Pagination: FC<TProps> = ({
             <div className='flex items-center justify-center xs:gap-0  sm:gap-1 xs:px-3 sm:px-5 py-10'>
                 {currentPageNumber > 1 && ( //NOTE - Предыдущая страница
                     <button
-                        className='mr-1 w-10 xs:w-10 md:w-14'
+                        className='mr-1 w-10 xs:w-10 md:w-12'
                         onClick={() => paginate(currentPageNumber - 1)}
                     >
                         <FaArrowCircleLeft size={'100%'} />
@@ -91,7 +91,7 @@ export const Pagination: FC<TProps> = ({
 
                 {currentPageNumber < totalItemsCount && ( //NOTE - Следующая страница
                     <button
-                        className='ml-1 w-10 xs:w-10 md:w-14'
+                        className='ml-1 w-10 xs:w-10 md:w-12'
                         onClick={() => paginate(currentPageNumber + 1)}
                     >
                         <FaArrowCircleRight size={'100%'} />
